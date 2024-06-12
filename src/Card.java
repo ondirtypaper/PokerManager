@@ -51,13 +51,54 @@ public class Card implements Comparable<Card>{
             default:
                 str = Integer.toString(value);
         }
-        return switch (suit) {
-            case 's' -> str + " of Spades";
-            case 'd' -> str + " of Diamonds";
-            case 'h' -> str + " of Hearts";
-            case 'c' -> str + " of Clubs";
-            default -> str;
-        };
+        // return switch (suit) {
+        //     case 's' -> str + " of Spades";
+        //     case 'd' -> str + " of Diamonds";
+        //     case 'h' -> str + " of Hearts";
+        //     case 'c' -> str + " of Clubs";
+        //     default -> str;
+        // };
+        // JAVA 14+ only
+        switch (suit) {
+            case 's':
+            str = str.concat(" of Spades");
+            break;
+            case 'd':
+            str = str.concat(" of Diamonds");
+            break;
+            case 'h':
+            str = str.concat(" of Hearts");
+            break;
+            case 'c':
+            str = str.concat(" of Clubs");
+            break;
+            default:
+            break;
+        }
+        return str;
+    }
+    public String toSimpleString()
+    {
+        String str;
+        switch (value) {
+            case 14:
+                str = "A";
+                break;
+            case 13:
+                str = "K";
+                break;
+            case 12:
+                str = "Q";
+                break;
+            case 11:
+                str = "J";
+                break;
+            case 10:
+                str = "T";
+            default:
+                str = Integer.toString(value);
+        }
+        return str + this.suit;
     }
     public boolean isEqual(Card card){
         return this.suit == card.getSuit() && this.value == card.value;

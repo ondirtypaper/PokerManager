@@ -1,29 +1,62 @@
 public class CardTest {
     public static void main(String[] args) {
-        Card card1 = new Card(11,'d');
-        Card card2 = new Card(11,'h');
+       
+       Deck myDeck = new Deck();
+       
+       System.out.println("Full Deck : "  + myDeck.isFull());
+    //    int i  = 1;
+    //    while(myDeck.getSize() > 0){
+    //      System.out.println(i++ + " : " + myDeck.drawCard().toString()); 
+    //    }
 
-        System.out.println(card1.toString());
-        System.out.println(card2.toString());
+    //   myDeck = new Deck();
+       Hand firstHand = new Hand();
 
-        card1.setValue(12);
-        card2.setValue(13);
+       firstHand.addCard(myDeck.drawCard());
+       firstHand.addCard(myDeck.drawCard());
+       firstHand.addCard(myDeck.drawCard());
 
-        System.out.println(card1.toString());
-        System.out.println(card2.toString());
+       //System.out.println(firstHand.toString());
+       //System.out.println("Suited? : " +firstHand.isSuited()+ "| Pair? : " +firstHand.isPocketPair());
+       System.out.println(firstHand.toSimpleString());
 
-        CardSet myHand = new CardSet();
-        myHand.addCard(new Card(11, 's'));
-        myHand.addCard(new Card(11,'h'));
-        myHand.addCard(new Card(11,'d'));
-        myHand.addCard(new Card(11,'c'));
+       Board myBoard = new Board();
+       myBoard.dealFlop(myDeck);
+       myBoard.printBoard();
+       myBoard.dealTurn(myDeck);
+       myBoard.printBoard();
+       myBoard.dealRiver(myDeck);
+       myBoard.printBoard();
 
-        System.out.println(myHand.toString());
+       ValueFinder vf = new ValueFinder();
 
-        card1 = myHand.getRandomCard();
-        System.out.println(card1.toString());
-        System.out.println(myHand.toString());
+       vf.addCard(new Card(2,'c'));
+       vf.addCard(new Card(3,'c'));
+       vf.addCard(new Card(4,'c'));
+       vf.addCard(new Card(5,'c'));
+       vf.addCard(new Card(6,'c'));
 
+       System.out.println(vf.toString());
+
+       System.out.println(vf.hasFlush());
+
+       ValueFinder vf2 = new ValueFinder();
+
+       vf2.addCard(new Card(5,'s'));
+       vf2.addCard(new Card(5,'d'));
+       vf2.addCard(new Card(6,'s'));
+       vf2.addCard(new Card(7,'c'));
+       vf2.addCard(new Card(7,'s'));
+       vf2.addCard(new Card(8,'d'));
+       vf2.addCard(new Card(9,'s'));
+       
+       System.out.println(vf2.toString());
+       System.out.println("hasPair ? : " + vf2.hasPair());
+       System.out.println("hasTwoPair ? : " + vf2.hasTwoPair());
+       System.out.println("hasTriple ? : " + vf2.hasTriple());
+       System.out.println("hasFullHouse ? : " + vf2.hasFullHouse());
+       System.out.println("hasStraight ? : " + vf2.hasStraight());
+       System.out.println("hasStraightFlush ? : " + vf2.hasStraightFlush());
 
     }
 }
