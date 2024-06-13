@@ -285,7 +285,7 @@ public class ValueFinder extends CardSet{
         for(int i=0; i<vArr.length ; i++){
             if(valueCard1 == (i+2)) continue;
             if(valueCard2 == (i+2)) continue;
-            if(vArr[i] > kicker) kicker = vArr[i]; 
+            if(vArr[i] > 0) kicker = i + 2; 
         }
         return kicker;
     }
