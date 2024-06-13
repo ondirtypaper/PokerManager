@@ -1,7 +1,18 @@
 import static util.Define.*;
 
 public class ValueFinder extends CardSet{
-    
+    // Constructors
+    public ValueFinder(){}
+    public ValueFinder(CardSet aSet, CardSet bSet){
+        super();
+        for(Card c : aSet.getTreeSet()){
+            this.addCard(c);
+        } 
+        for(Card c : bSet.getTreeSet()){
+            this.addCard(c);
+        }
+    }
+
     public int getValueCode(){
         int code = 0;
         if(this.hasStraightFlush() > 0){
