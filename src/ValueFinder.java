@@ -1,8 +1,4 @@
 import static util.Define.*;
-<<<<<<< HEAD
-=======
-
->>>>>>> fd0d2f27d5515517f0439dfd617fd895e92ac958
 
 public class ValueFinder extends CardSet{
     
