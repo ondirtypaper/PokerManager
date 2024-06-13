@@ -1,23 +1,23 @@
-import static util.Define.VALUE_OF_ACE;
+import static util.Define.*;
 
 public class ValueFinder extends CardSet{
     
     public char hasFlush(){
         int sCount = 0, cCount = 0, dCount = 0, hCount = 0;
         for(Card c : this.getTreeSet()){
-            if(c.getSuit() == 's') sCount++;
-            else if(c.getSuit() == 'c') cCount++;  
-            else if(c.getSuit() == 'd') dCount++;
-            else if(c.getSuit() == 'h') hCount++;
+            if(c.getSuit() == SUIT_OF_SPADES) sCount++;
+            else if(c.getSuit() == SUIT_OF_CLUBS) cCount++;  
+            else if(c.getSuit() == SUIT_OF_DIAMONDS) dCount++;
+            else if(c.getSuit() == SUIT_OF_HEARTS) hCount++;
         }
 
         // if(sCount >= 5 || cCount >= 5 || dCount >= 5 || hCount >= 5){
         //     return true;
         // }
-        if(sCount >= 5) return 's';
-        if(cCount >= 5) return 'c';
-        if(dCount >= 5) return 'd';
-        if(hCount >= 5) return 'h';
+        if(sCount >= 5) return SUIT_OF_SPADES;
+        if(cCount >= 5) return SUIT_OF_CLUBS;
+        if(dCount >= 5) return SUIT_OF_DIAMONDS;
+        if(hCount >= 5) return SUIT_OF_HEARTS;
         // ValueFinder 가 10장이라서 두번째 플러시가 나타는 경우는 고려치 않음. ValueFinder의 Max size는 7 (오마하를 포함하면 9)
 
         else return 'f'; // means false
