@@ -12,7 +12,59 @@ public class ValueFinder extends CardSet{
             this.addCard(c);
         }
     }
-
+    public void showValue(){
+        int vCode = this.getValueCode();
+        int rankCode = vCode / CODE_OF_HIGH_CARD;
+        
+        String str = "";
+        switch (rankCode) {
+            case 9:
+                str = "Straight Flush";
+                vCode = vCode - (rankCode * CODE_OF_HIGH_CARD);
+                rankCode = vCode / CODE_OF_SECOND_VALUE;
+                str = Card.intToString(rankCode) + " high " + str + " of " + Card.charToString(this.hasFlush());
+                break;
+            case 8:
+                str = "Four of kind";
+                str = str + " of " + Card.intToString(this.hasQuads()) + "s" + " with " + Card.intToString(this.getKicker(this.hasQuads())) + " kicker";
+                break;
+            case 7:
+                str = "Full House";
+                str = str + " of " + Card.intToString(this.hasPair()) + " and "  + Card.intToString(this.hasFullHouse()) + "s";
+                break;
+            case 6:
+                str = "Flush";
+                vCode = vCode - (rankCode * CODE_OF_HIGH_CARD);
+                rankCode = vCode / CODE_OF_SECOND_VALUE;
+                str = Card.intToString(rankCode) + " high " + str + " of " + Card.charToString(this.hasFlush());
+                break;
+            case 5:
+                str = "Straight";
+                str = Card.intToString(this.hasStraight()) + " high " + str;
+                break;
+            case 4:
+                str = "Three of kind";
+                str = str + " of " + Card.intToString(this.hasTriple()) + "s" + " with " + Card.intToString(this.getKicker(this.hasTriple())) + " kicker";
+                break;
+            case 3:
+                str = "Two Pairs";
+                str = str + " of " + Card.intToString(this.hasPair()) + " and "  + Card.intToString(this.hasTwoPair()) + "s" + " with " + Card.intToString(this.getKicker(this.hasPair(), this.hasTwoPair())) + " kicker";
+                break;
+            case 2:
+                str = "A Pair";
+                str = str + " of " + Card.intToString(this.hasPair()) + "s" + " with " + Card.intToString(this.getKicker(this.hasPair())) + " kicker";
+                break;
+            case 1:
+                str = "Just";
+                vCode = vCode - (rankCode * CODE_OF_HIGH_CARD);
+                vCode = vCode / CODE_OF_SECOND_VALUE;
+                str = str + " " + Card.intToString(vCode + 2) + " high" + " with " + Card.intToString(this.getKicker(vCode+2)) + " kicker";
+                break;
+            default:
+                break;
+        }
+        System.out.println(str);
+    }
     public int getValueCode(){
         int code = 0;
         if(this.hasStraightFlush() > 0){
@@ -223,7 +275,7 @@ public class ValueFinder extends CardSet{
         int kicker = 0;
         for(int i=0; i<vArr.length ; i++){
             if(valueCard == (i+2)) continue;
-            if(vArr[i] > kicker) kicker = vArr[i]; 
+            if(vArr[i] > 0) kicker = i + 2; 
         }
         return kicker;
     }

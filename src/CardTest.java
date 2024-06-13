@@ -38,19 +38,34 @@ public class CardTest {
       myBoard.dealFlop(myDeck);
       System.out.println("Current Deck Size : " + myDeck.getSize() + " [Full? : " + myDeck.isFull() +"]");
       myBoard.printBoard();
-      System.out.println("************************************");
       System.out.print("<<" + firstHand.toSimpleString() +">> ");
-      
       // firstHand 와 myBoard를 합쳐서 ValueFinder 생성
       ValueFinder vf = new ValueFinder(firstHand, myBoard);
-      System.out.println(vf.getValueCode());
+      System.out.print(vf.getValueCode() + " ");
+      vf.showValue();
+      System.out.println("************************************");
+
+      scan.nextLine();
 
       myBoard.dealTurn(myDeck);
       myBoard.printBoard();
+      System.out.print("<<" + firstHand.toSimpleString() +">> ");
+      vf.addCard(myBoard.getCard(3));
+      System.out.print(vf.getValueCode() + " ");
+      vf.showValue();
+
+      scan.nextLine();
+
       myBoard.dealRiver(myDeck);
       myBoard.printBoard();
+      System.out.print("<<" + firstHand.toSimpleString() +">> ");
+      vf.addCard(myBoard.getCard(4));
+      System.out.print(vf.getValueCode() + " ");
+      vf.showValue();
 
+      System.out.println("... ... test is over");
       scan.close();
        
+
     }
 }

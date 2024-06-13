@@ -1,6 +1,9 @@
 public class Board extends CardSet{
     private Card[] boardArray = new Card[5];
-
+    
+    public Card getCard(int i){
+        return boardArray[i];
+    }
     public boolean dealFlop(Deck d){
         if(this.getSize() == 0){
         

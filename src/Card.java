@@ -30,6 +30,49 @@ public class Card implements Comparable<Card>{
             System.out.println("Wrong card suit");
     }
 
+    public static String intToString(int value){
+        String str;
+        switch (value) {
+            case 14:
+                str = "Ace";
+                break;
+            case 13:
+                str = "King";
+                break;
+            case 12:
+                str = "Queen";
+                break;
+            case 11:
+                str = "Jack";
+                break;
+            case 10:
+                str = "Ten";
+                break;
+            default:
+                str = Integer.toString(value);
+        }
+        return str;
+    }
+    public static String charToString(char suit){
+        String str ="";
+        switch (suit) {
+            case 's':
+            str = str.concat(" of Spades");
+            break;
+            case 'd':
+            str = str.concat(" of Diamonds");
+            break;
+            case 'h':
+            str = str.concat(" of Hearts");
+            break;
+            case 'c':
+            str = str.concat(" of Clubs");
+            break;
+            default:
+            break;
+        }
+        return str;
+    }
     public String toString()
     {
         String str;
