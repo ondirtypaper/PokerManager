@@ -7,13 +7,19 @@ import util.Rank;
 public class Value implements Comparable{
     private int[] bestOfFive;
     private Rank rank;
+    private char flushCode;
 
     public Value(){
         bestOfFive = new int[5];
     }
     public Value(CardSet cSet){
         bestOfFive = new int[5];
-
+        this.distValue(cSet);
+    }
+    public Value(CardSet ... cSets){
+        bestOfFive = new int[5];
+        CardSet cSet = new CardSet(cSets);
+        this.distValue(cSet);
     }
 
     public void setRank(int rankCode){
@@ -54,15 +60,16 @@ public class Value implements Comparable{
         if((valueCode = cSet.hasStraightFlush()) > 0){
             
             this.rank = Rank.STRAIGHT_FLUSH;
-            for(int v : bestOfFive){
-                v = valueCode--;
+            this.flushCode = cSet.hasFlush();
+            for(int i=0; i<bestOfFive.length ;i++){
+                bestOfFive[i] = valueCode--;
             }
 
         } else if((valueCode = cSet.hasQuads()) > 0){
             
             this.rank = Rank.QUADS;
-            for(int v : bestOfFive){
-                v = valueCode;
+            for(int i=0; i<bestOfFive.length ;i++){
+                bestOfFive[i] = valueCode;
             }
             bestOfFive[4] = cSet.getKicker(valueCode); 
             // bestOfFive of Quads -> [v][v][v][v][k]
@@ -78,43 +85,87 @@ public class Value implements Comparable{
             }
             // bestOfFive of FullHouse -> [f][f][f][f][s]
 
-        } else if(cSet.hasFlush() != NO_FLUSH){
+        } else if((this.flushCode = cSet.hasFlush()) != NO_FLUSH){
             
             this.rank = Rank.FLUSH;
-            char flushCode = cSet.hasFlush();
             SortedSet<Card> sSet = cSet.getTreeSet().subSet(new Card(2,flushCode), new Card(VALUE_OF_ACE,flushCode));
-            for(int v : bestOfFive){
-                v = sSet.last().getValue();
+            for(int i=0; i<bestOfFive.length ;i++){
+                bestOfFive[i] = sSet.last().getValue();
+            }
+
+        } else if((valueCode = cSet.hasStraight()) > 0){
+            
+            this.rank = Rank.STRAIGHT;
+            for(int i=0; i<bestOfFive.length ;i++){
+                bestOfFive[i] = valueCode--;
             }
             
-        } else if(this.hasStraight() > 0){
-            code += CODE_OF_STRAIGHT;
-            code += this.hasStraight() * CODE_OF_FISRT_VALUE;
+        } else if((valueCode = cSet.hasTriple()) > 0){
+            
+            this.rank = Rank.THREE_OF_KIND;
+            for(int i=0; i<bestOfFive.length ;i++){
+                bestOfFive[i] = valueCode;
+            }
+            bestOfFive[3] = cSet.getKicker(valueCode); 
+            bestOfFive[4] = cSet.getKicker(valueCode, bestOfFive[3]);
+            // bestOfFive of triple [v][v][v][first_kicker][second_kicker]
 
-        } else if(this.hasTriple() > 0){
-            code += CODE_OF_TRIPLE;
-            code += this.hasTriple() * CODE_OF_FISRT_VALUE;
-            int firstKicker = this.getKicker(this.hasTriple());
-            code += firstKicker * CODE_OF_SECOND_VALUE;
-            int secondKicker = this.getKicker(this.hasTriple(), firstKicker);
-            code += secondKicker * CODE_OF_KICKER;
+        } else if((valueCode = cSet.hasTwoPair()) > 0){
+            
+            this.rank = Rank.TWO_PAIR;
+            int firstPairValue = cSet.hasPair();
+            bestOfFive[0] = firstPairValue;
+            bestOfFive[1] = firstPairValue;
+            // hasTwoPair() returns value of second-best pair
+            bestOfFive[2] = valueCode;
+            bestOfFive[3] = valueCode;
+            bestOfFive[4] = cSet.getKicker(firstPairValue, valueCode);
+            // bestOfFive of TwoPair [first_value][first_value][second_value][second_value][kicker]
 
-        } else if(this.hasTwoPair() > 0){
-            code += CODE_OF_TWO_PAIR;
-            code += this.hasPair() * CODE_OF_FISRT_VALUE;
-            code += this.hasTwoPair() * CODE_OF_SECOND_VALUE;
-            code += this.getKicker(this.hasPair(), this.hasTwoPair()) * CODE_OF_KICKER;
+        } else if((valueCode = cSet.hasPair()) > 0){
+            
+            this.rank = Rank.ONE_PAIR;
+            bestOfFive[0] = valueCode;
+            bestOfFive[0] = valueCode;
+            bestOfFive[1] = cSet.getKicker(valueCode);
+            bestOfFive[2] = cSet.getKicker(valueCode, bestOfFive[1]);
+            bestOfFive[3] = cSet.getKicker(valueCode, bestOfFive[1], bestOfFive[2]);
 
-        } else if(this.hasPair() > 0){
-            code += CODE_OF_ONE_PAIR;
-            code += this.hasPair() * CODE_OF_FISRT_VALUE;
-            code += this.getHighCardCode(this.hasPair());
         } else {
-            code += CODE_OF_HIGH_CARD;
-            code += this.getHighCardCode();
+            
+            // Just High card
+            this.rank = Rank.HIGH_CARD;
+            bestOfFive[0] = cSet.getKicker();
+            bestOfFive[1] = cSet.getKicker(bestOfFive[0]);
+            bestOfFive[2] = cSet.getKicker(bestOfFive[0], bestOfFive[1]);
+            bestOfFive[3] = cSet.getKicker(bestOfFive[0], bestOfFive[1], bestOfFive[2]);  
+            bestOfFive[4] = cSet.getKicker(bestOfFive[0], bestOfFive[1], bestOfFive[2], bestOfFive[3]);
+            
         }
-
-        return code;
+    }
+    public String toString(){
+        
+        switch (this.rank) {
+            case STRAIGHT_FLUSH: return Card.intToString(bestOfFive[0]) + " High Straight Flush of " + getflushStr() ;
+            case QUADS: return "Four of a kind with " + Card.intToString(bestOfFive[0]) + " and " + Card.intToString(bestOfFive[4]) + " kicker";
+            case FULL_HOUSE: return "Full house of " +  Card.intToString(bestOfFive[0]) + " and " + Card.intToString(bestOfFive[4]);
+            case FLUSH: return Card.intToString(bestOfFive[0]) + " High Flush of " + getflushStr();
+            case STRAIGHT: return Card.intToString(bestOfFive[0]) + " High Straight";
+            case THREE_OF_KIND: return "Three of a kind with " + Card.intToString(bestOfFive[0]) + " and " + Card.intToString(bestOfFive[3]) + " kicker";
+            case TWO_PAIR: return "Two pairs of " + Card.intToString(bestOfFive[0]) + "s and " + Card.intToString(bestOfFive[2]) + "s and " + Card.intToString(bestOfFive[4])+ " kicker";
+            case ONE_PAIR: return "A pair of " + Card.intToString(bestOfFive[0]) + "s and " + Card.intToString(bestOfFive[1]) + " kicker";
+            case HIGH_CARD: return "Just " + Card.intToString(bestOfFive[0]) + " High and " + Card.intToString(bestOfFive[1]) + " kicker";
+            default: return "";        
+        }
+    }
+    public String getflushStr(){
+        switch (flushCode) {
+            case 's': return "Spades";
+            case 'h': return "Hearts";
+            case 'd': return "Diamonds";
+            case 'c': return "Clubs";
+            default: return "None";
+        }
     }
     @Override
     public int compareTo(Object o) {

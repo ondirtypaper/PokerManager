@@ -9,6 +9,14 @@ public class CardSet {
     public CardSet(){
         tree = new TreeSet<Card>();
     }
+    public CardSet(CardSet ... sets){
+        tree = new TreeSet<Card>();
+        for (CardSet cSet : sets) {
+            for (Card c : cSet.getTreeSet()){
+                this.addCard(c);
+            }
+        }
+    }
 
     public boolean addCard(Card c){
         return tree.add(c);
@@ -86,7 +94,11 @@ public class CardSet {
     public int hasStraightFlush(){
         char flushSuit = this.hasFlush();
         if(flushSuit == NO_FLUSH) return 0; 
-        CardSet flushCardSet = (CardSet)this.getTreeSet().subSet(new Card(2,flushSuit), new Card(VALUE_OF_ACE,flushSuit));
+        // ClassCastException !! CardSet flushCardSet = (CardSet)this.getTreeSet().subSet(new Card(2,flushSuit), new Card(VALUE_OF_ACE,flushSuit));
+        CardSet flushCardSet = new CardSet();
+        for (Card c : this.getTreeSet().subSet(new Card(2,flushSuit), new Card(VALUE_OF_ACE,flushSuit))){
+            flushCardSet.addCard(c);
+        }
         return flushCardSet.hasStraight();
     }
     public int hasQuads(){
@@ -189,6 +201,14 @@ public class CardSet {
             // for example ,  vArr[4] == count of 6s   
         }
         return vArr;
+    }
+    public int getKicker(){
+        int[] vArr = this.getValueArray();
+        int kicker = 0;
+        for(int i=0; i<vArr.length ; i++){
+            if(vArr[i] > 0) kicker = i +2;
+        }
+        return kicker;
     }
     public int getKicker(int valueCard){
         int[] vArr = this.getValueArray();
