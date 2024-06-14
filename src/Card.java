@@ -41,10 +41,10 @@ public class Card implements Comparable<Card>{
             case VALUE_OF_KING:
                 str = "King";
                 break;
-            case 12:
+            case VALUE_OF_QUEEN:
                 str = "Queen";
                 break;
-            case 11:
+            case VALUE_OF_JACK:
                 str = "Jack";
                 break;
             case 10:
@@ -58,16 +58,16 @@ public class Card implements Comparable<Card>{
     public static String charToString(char suit){
         String str ="";
         switch (suit) {
-            case 's':
+            case SUIT_OF_SPADES:
             str = str.concat("Spades");
             break;
-            case 'd':
+            case SUIT_OF_DIAMONDS:
             str = str.concat("Diamonds");
             break;
-            case 'h':
+            case SUIT_OF_HEARTS:
             str = str.concat("Hearts");
             break;
-            case 'c':
+            case SUIT_OF_CLUBS:
             str = str.concat("Clubs");
             break;
             default:
@@ -79,16 +79,16 @@ public class Card implements Comparable<Card>{
     {
         String str;
         switch (value) {
-            case 14:
+            case VALUE_OF_ACE:
                 str = "Ace";
                 break;
-            case 13:
+            case VALUE_OF_KING:
                 str = "King";
                 break;
-            case 12:
+            case VALUE_OF_QUEEN:
                 str = "Queen";
                 break;
-            case 11:
+            case VALUE_OF_JACK:
                 str = "Jack";
                 break;
             case 10:
@@ -97,25 +97,17 @@ public class Card implements Comparable<Card>{
             default:
                 str = Integer.toString(value);
         }
-        // return switch (suit) {
-        //     case 's' -> str + " of Spades";
-        //     case 'd' -> str + " of Diamonds";
-        //     case 'h' -> str + " of Hearts";
-        //     case 'c' -> str + " of Clubs";
-        //     default -> str;
-        // };
-        // JAVA 14+ only
         switch (suit) {
-            case 's':
+            case SUIT_OF_SPADES:
             str = str.concat(" of Spades");
             break;
-            case 'd':
+            case SUIT_OF_DIAMONDS:
             str = str.concat(" of Diamonds");
             break;
-            case 'h':
+            case SUIT_OF_HEARTS:
             str = str.concat(" of Hearts");
             break;
-            case 'c':
+            case SUIT_OF_CLUBS:
             str = str.concat(" of Clubs");
             break;
             default:
@@ -127,16 +119,16 @@ public class Card implements Comparable<Card>{
     {
         String str;
         switch (value) {
-            case 14:
+            case VALUE_OF_ACE:
                 str = "A";
                 break;
-            case 13:
+            case VALUE_OF_KING:
                 str = "K";
                 break;
-            case 12:
+            case VALUE_OF_QUEEN:
                 str = "Q";
                 break;
-            case 11:
+            case VALUE_OF_JACK:
                 str = "J";
                 break;
             case 10:
