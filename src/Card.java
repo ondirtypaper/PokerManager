@@ -1,3 +1,5 @@
+import static util.Define.*;
+
 public class Card implements Comparable<Card>{
     private int value;
     private char suit;
@@ -24,7 +26,7 @@ public class Card implements Comparable<Card>{
     }
 
     public void setSuit(char suit) {
-        if( suit == 's' || suit == 'd' || suit == 'h' || suit == 'c') // spade or heart or diamond or club
+        if( suit == SUIT_OF_SPADES || suit == SUIT_OF_DIAMONDS || suit == SUIT_OF_HEARTS || suit == SUIT_OF_CLUBS) 
             this.suit = suit;
         else
             System.out.println("Wrong card suit");
@@ -33,10 +35,10 @@ public class Card implements Comparable<Card>{
     public static String intToString(int value){
         String str;
         switch (value) {
-            case 14:
+            case VALUE_OF_ACE:
                 str = "Ace";
                 break;
-            case 13:
+            case VALUE_OF_KING:
                 str = "King";
                 break;
             case 12:
@@ -57,16 +59,16 @@ public class Card implements Comparable<Card>{
         String str ="";
         switch (suit) {
             case 's':
-            str = str.concat(" of Spades");
+            str = str.concat("Spades");
             break;
             case 'd':
-            str = str.concat(" of Diamonds");
+            str = str.concat("Diamonds");
             break;
             case 'h':
-            str = str.concat(" of Hearts");
+            str = str.concat("Hearts");
             break;
             case 'c':
-            str = str.concat(" of Clubs");
+            str = str.concat("Clubs");
             break;
             default:
             break;
@@ -91,6 +93,7 @@ public class Card implements Comparable<Card>{
                 break;
             case 10:
                 str = "Ten";
+                break;
             default:
                 str = Integer.toString(value);
         }

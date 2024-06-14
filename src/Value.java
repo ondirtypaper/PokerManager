@@ -4,7 +4,7 @@ import java.util.SortedSet;
 
 import util.Rank;
 
-public class Value implements Comparable{
+public class Value implements Comparable<Value>{
     private int[] bestOfFive;
     private Rank rank;
     private char flushCode;
@@ -168,9 +168,61 @@ public class Value implements Comparable{
         }
     }
     @Override
-    public int compareTo(Object o) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'compareTo'");
+    public int compareTo(Value v){
+        int diff = this.getRankCode() - v.getRankCode();
+        if(diff != 0) return diff * WEIGHT_OF_RANKING_DIFFERENCE;
+        else{
+            
+            diff = this.bestOfFive[0] - v.bestOfFive[0];
+            if (diff != 0) return diff * WEIGHT_OF_FIRST_VALUE_DIFFERENCE;
+            else{
+                switch(this.rank){
+                    case STRAIGHT_FLUSH: return 0;
+                    case QUADS:
+                    diff = this.bestOfFive[4] - v.bestOfFive[4];
+                    return diff * WEIGHT_OF_KICKER_DIFFERENCE;
+                    case FULL_HOUSE:
+                    diff = this.bestOfFive[3] - v.bestOfFive[3];
+                    return diff * WEIGHT_OF_SECOND_VALUE_DIFFERENCE;
+                    case FLUSH: return 0;
+                    case STRAIGHT: return 0;
+                    case THREE_OF_KIND:
+                    diff = this.bestOfFive[3] - v.bestOfFive[3];
+                    if(diff == 0) diff = this.bestOfFive[4] - v.bestOfFive[4];
+                    return diff * WEIGHT_OF_KICKER_DIFFERENCE;
+                    case TWO_PAIR:
+                    diff = this.bestOfFive[2] - v.bestOfFive[2];
+                    if(diff == 0){
+                        diff = this.bestOfFive[4] - v.bestOfFive[4];
+                        return diff * WEIGHT_OF_KICKER_DIFFERENCE;
+                    }else{
+                        return diff * WEIGHT_OF_SECOND_VALUE_DIFFERENCE;
+                    }
+                    case ONE_PAIR:
+                    diff = this.bestOfFive[2] - v.bestOfFive[2];
+                    if(diff == 0){
+                        diff = this.bestOfFive[3] - v.bestOfFive[3];
+                        if(diff == 0){
+                            diff = this.bestOfFive[4] - v.bestOfFive[4];
+                        }
+                    }
+                    return diff * WEIGHT_OF_KICKER_DIFFERENCE;
+                    case HIGH_CARD:
+                    diff = this.bestOfFive[1] - v.bestOfFive[1];
+                    if(diff == 0){
+                        diff = this.bestOfFive[2] - v.bestOfFive[2];
+                        if(diff == 0){
+                            diff = this.bestOfFive[3] - v.bestOfFive[3];
+                            if(diff == 0){
+                                diff = this.bestOfFive[4] - v.bestOfFive[4];
+                            }
+                        } 
+                    }
+                    return diff * WEIGHT_OF_KICKER_DIFFERENCE;
+                }
+            }
+
+        return diff;
+        }   
     }
-    
 }
