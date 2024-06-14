@@ -24,4 +24,6 @@ public class Define {
     public final static int CODE_OF_FISRT_VALUE     = 1000000;
     public final static int CODE_OF_SECOND_VALUE    = 10000;
     public final static int CODE_OF_KICKER          = 100;
+
+    public final static char NO_FLUSH = 'f';
 }
