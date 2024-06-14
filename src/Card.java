@@ -133,6 +133,7 @@ public class Card implements Comparable<Card>{
                 break;
             case 10:
                 str = "T";
+                break;
             default:
                 str = Integer.toString(value);
         }

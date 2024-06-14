@@ -22,12 +22,16 @@ public class CardTest {
          
 
         Hand firstHand = new Hand();
+        Hand secondHand = new Hand();
 
         firstHand.addCard(myDeck.drawCard());
+        secondHand.addCard(myDeck.drawCard());
         firstHand.addCard(myDeck.drawCard());
+        secondHand.addCard(myDeck.drawCard());
          
         System.out.println("Current Deck Size : " + myDeck.getSize() + " [Full? : " + myDeck.isFull() +"]");
-        System.out.println("<<" + firstHand.toSimpleString() + ">> is dealted. [Suited? " + firstHand.isSuited() + "]" + "[Pair? " + firstHand.isPocketPair() + "]");
+        System.out.println("Your Hand : " + firstHand.toString());
+        System.out.println("His Hand : " + secondHand.toString());
         System.out.println("> Press Enter...");
         scan.nextLine();
 
@@ -39,30 +43,57 @@ public class CardTest {
         myBoard.dealFlop(myDeck);
         System.out.println("Current Deck Size : " + myDeck.getSize() + " [Full? : " + myDeck.isFull() +"]");
         myBoard.printBoard();
-        System.out.print("<<" + firstHand.toSimpleString() +">> ");
-         
-         
+
+        System.out.print("Your Hand :\t" + firstHand.toString() + "\t");
         Value myHandValue = new Value(firstHand, myBoard);
         System.out.println(myHandValue.toString());
+        
+        System.out.print("His Hand :\t" + secondHand.toString() + "\t");
+        Value hisHandValue = new Value(secondHand, myBoard);
+        System.out.println(hisHandValue.toString());
+
         System.out.println("************************************");
+        if(myHandValue.compareTo(hisHandValue) > 0) System.out.print("You're ahead");
+        else if(myHandValue.compareTo(hisHandValue) <0) System.out.print("You're behind");
+        else System.out.print("SAME VAULE");
         System.out.println("> Press Enter...");
         scan.nextLine();
 
         myBoard.dealTurn(myDeck);
         myBoard.printBoard();
-        System.out.print("<<" + firstHand.toSimpleString() +">> ");
         
+        System.out.print("Your Hand :\t" + firstHand.toString() + "\t");
         myHandValue = new Value(firstHand, myBoard);
         System.out.println(myHandValue.toString());
+        
+        System.out.print("His Hand :\t" + secondHand.toString() + "\t");
+        hisHandValue = new Value(secondHand, myBoard);
+        System.out.println(hisHandValue.toString());
+        
         System.out.println("************************************");
+        if(myHandValue.compareTo(hisHandValue) > 0) System.out.print("You're ahead");
+        else if(myHandValue.compareTo(hisHandValue) <0) System.out.print("You're behind");
+        else System.out.print("SAME VAULE");
         System.out.println("> Press Enter...");
         scan.nextLine();
 
         myBoard.dealRiver(myDeck);
         myBoard.printBoard();
-        System.out.print("<<" + firstHand.toSimpleString() +">> ");
+
+        System.out.print("Your Hand :\t" + firstHand.toString() + "\t");
         myHandValue = new Value(firstHand, myBoard);
         System.out.println(myHandValue.toString());
+        
+        System.out.print("His Hand :\t" + secondHand.toString() + "\t");
+        hisHandValue = new Value(secondHand, myBoard);
+        System.out.println(hisHandValue.toString());
+        
+        System.out.println("************************************");
+        if(myHandValue.compareTo(hisHandValue) > 0) System.out.print("You're ahead");
+        else if(myHandValue.compareTo(hisHandValue) <0) System.out.print("You're behind");
+        else System.out.print("SAME VAULE");
+        System.out.println("> Press Enter...");
+        scan.nextLine();
 
         System.out.print("-------------------------------- again? (Y/N) > "); 
         String command = scan.nextLine();

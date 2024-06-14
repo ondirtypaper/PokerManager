@@ -17,6 +17,4 @@ public class Define {
     public final static int WEIGHT_OF_FIRST_VALUE_DIFFERENCE = 100;
     public final static int WEIGHT_OF_SECOND_VALUE_DIFFERENCE = 10;
     public final static int WEIGHT_OF_KICKER_DIFFERENCE = 1;
-    
-
 }

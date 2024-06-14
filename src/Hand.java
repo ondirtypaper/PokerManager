@@ -1,3 +1,4 @@
+import static util.Define.*;
 public class Hand extends CardSet{
     
     public Hand(){
@@ -23,5 +24,40 @@ public class Hand extends CardSet{
         return true;
         else
         return false;
+    }
+    public String toString(){
+        String str = "";
+        Card[] tCardArr = new Card[2];
+        if(this.getCardFirst().getValue() < this.getCardLast().getValue()){
+            tCardArr[0] = this.getCardLast();
+            tCardArr[1] = this.getCardFirst();
+        } else {
+            tCardArr[0] = this.getCardFirst();
+            tCardArr[1] = this.getCardLast();
+        }
+        
+        for(Card c : tCardArr){
+            switch(c.getValue()){
+                case VALUE_OF_ACE:
+                str = str.concat("A");
+                break;
+                case VALUE_OF_KING:
+                str = str.concat("K");
+                break;
+                case VALUE_OF_QUEEN:
+                str = str.concat("Q");
+                break;
+                case VALUE_OF_JACK:
+                str = str.concat("J");
+                break;
+                case 10:
+                str = str.concat("T");
+                break;
+                default:
+                str = str.concat(Integer.toString(c.getValue()));
+            }
+            str = str.concat(Character.toString(c.getSuit()));
+        }
+        return str;
     }
 }

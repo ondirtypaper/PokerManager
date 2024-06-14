@@ -58,16 +58,6 @@ public class CardSet {
     public String toSimpleString(){
         String str = "";
         for (Card c : tree){
-            // str = switch (c.getValue()) {
-            //     case VALUE_OF_ACE -> str.concat("A");
-            //     case VALUE_OF_KING -> str.concat("K");
-            //     case VALUE_OF_QUEEN -> str.concat("Q");
-            //     case VALUE_OF_JACK -> str.concat("J");
-            //     case 10 -> str.concat("T");
-            //     default -> str.concat(Integer.toString(c.getValue()));
-            // };
-            // JAVA 14+ 
-
             switch(c.getValue()){
                 case VALUE_OF_ACE:
                 str = str.concat("A");
