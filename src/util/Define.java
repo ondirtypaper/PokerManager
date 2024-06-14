@@ -12,4 +12,11 @@ public class Define {
     public final static char SUIT_OF_CLUBS = 'c';
 
     public final static char NO_FLUSH = 'f';
+
+    public final static int WEIGHT_OF_RANKING_DIFFERENCE = 1000;
+    public final static int WEIGHT_OF_FIRST_VALUE_DIFFERENCE = 100;
+    public final static int WEIGHT_OF_SECOND_VALUE_DIFFERENCE = 10;
+    public final static int WEIGHT_OF_KICKER_DIFFERENCE = 1;
+    
+
 }
