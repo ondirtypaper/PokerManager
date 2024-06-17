@@ -55,7 +55,12 @@ public class CardTest {
         System.out.println("************************************");
         if(myHandValue.compareTo(hisHandValue) > 0) System.out.print("You're ahead");
         else if(myHandValue.compareTo(hisHandValue) <0) System.out.print("You're behind");
-        else System.out.print("SAME VAULE");
+        else System.out.println("SAME VAULE");
+
+        System.out.println("++ OUTS TEST ++");
+        Outs myOuts = new Outs(myHandValue, hisHandValue, myDeck);
+        myOuts.print();
+
         System.out.println("> Press Enter...");
         scan.nextLine();
 
@@ -104,6 +109,6 @@ public class CardTest {
      
       System.out.println("... ... test is over");
       scan.close();
-      
+
     }
 }

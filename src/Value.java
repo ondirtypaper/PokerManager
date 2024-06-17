@@ -14,13 +14,20 @@ public class Value extends CardSet implements Comparable<Value> {
     }
     public Value(CardSet cSet){
         bestOfFive = new int[5];
+        for(Card c : cSet){
+            this.add(c);
+        }
         this.distValue(cSet);
     }
     public Value(CardSet ... cSets){
         bestOfFive = new int[5];
         CardSet cSet = new CardSet(cSets);
+        for(Card c : cSet){
+            this.add(c);
+        }
         this.distValue(cSet);
     }
+   
 
     public void setRank(int rankCode){
         switch(rankCode){
