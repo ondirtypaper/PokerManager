@@ -32,6 +32,9 @@ public class CardTest {
         System.out.println("Current Deck Size : " + myDeck.getSize() + " [Full? : " + myDeck.isFull() +"]");
         System.out.println("Your Hand : " + firstHand.toString());
         System.out.println("His Hand : " + secondHand.toString());
+
+        
+
         System.out.println("> Press Enter...");
         scan.nextLine();
 
@@ -53,12 +56,13 @@ public class CardTest {
         System.out.println(hisHandValue.toString());
 
         System.out.println("************************************");
-        
         Outs myOuts = new Outs();
-        double[] equity = myOuts.calcEquity(myHandValue, hisHandValue, myDeck, 2);
+        double[] equity = myOuts.calcEquity(myHandValue, hisHandValue, myDeck, 1);
+        
         System.out.println("Your Equity : " + Double.toString(equity[0]));
         System.out.println("Chop Equity : " + Double.toString(equity[1]));
         System.out.println("His  Equity : " + Double.toString(equity[2]));
+        
 
         System.out.println("> Press Enter...");
         scan.nextLine();

@@ -28,10 +28,11 @@ public class Outs extends CardSet{
         }
     }
 
-    public double[] calcEquity(CardSet aCardSet, CardSet bCardSet, Deck currentDeck, int remainBoard){
+    public double[] calcEquity(CardSet aSet, CardSet bSet, Deck currentDeck, int remainBoard){
         double[] equity = {0.0, 0.0, 0.0}; 
         // [aEquity][chopEquity][bEquity]
-
+        CardSet aCardSet = new CardSet(aSet);
+        CardSet bCardSet = new CardSet(bSet);
         int possibleCombo = 0;
         int aCount = 0;
         int chopCount = 0;
@@ -76,8 +77,61 @@ public class Outs extends CardSet{
                 aCardSet.removeCard(c);
                 bCardSet.removeCard(c);
             }
-        }else{
+        // }else if(remainBoard == 5){
+        //     for(Card c1 : currentDeck){
+        //         aCardSet.addCard(c1);
+        //         bCardSet.addCard(c1);
+        //         Deck tempDeck = (Deck)currentDeck.clone();
+        //         tempDeck.removeCard(c1);
+        //         for(Card c2 : tempDeck){
+                    
+        //             aCardSet.addCard(c2);
+        //             bCardSet.addCard(c2);
+        //             Deck tempDeck2 = (Deck)tempDeck.clone();
+        //             tempDeck2.removeCard(c2);
+        //             for(Card c3 : tempDeck2){
+        //                 aCardSet.addCard(c3);
+        //                 bCardSet.addCard(c3);
+        //                 Deck tempDeck3 = (Deck)tempDeck2.clone();
+        //                 tempDeck3.removeCard(c3);
+        //                 for(Card c4 : tempDeck3){
+        //                     aCardSet.addCard(c4);
+        //                     bCardSet.addCard(c4);
+        //                     Deck tempDeck4 = (Deck)tempDeck3.clone();
+        //                     tempDeck4.removeCard(c4);
+        //                     for(Card c5 : tempDeck4){
+        //                         aCardSet.addCard(c5);
+        //                         bCardSet.addCard(c5);
+                                
 
+        //                         possibleCombo++;
+        //                         aValue = new Value(aCardSet);
+        //                         bValue = new Value(bCardSet);
+        //                         int newValueDiff = aValue.compareTo(bValue);
+        //                         if(newValueDiff > 0) aCount++;
+        //                         else if (newValueDiff == 0) chopCount++;
+        //                         else bCount++;
+        //                         aCardSet.removeCard(c5);
+        //                         bCardSet.removeCard(c5);
+                                
+        //                     }
+        //                     aCardSet.removeCard(c4);
+        //                     bCardSet.removeCard(c4);
+                            
+        //                 }
+        //                 aCardSet.removeCard(c3);
+        //                 bCardSet.removeCard(c3);
+                        
+        //             }
+        //             aCardSet.removeCard(c2);
+        //             bCardSet.removeCard(c2);
+                    
+                    
+        //         }
+        //         aCardSet.removeCard(c1);
+        //         bCardSet.removeCard(c1);
+                
+        //     }
         }
         equity[0] = aCount / (double)possibleCombo;
         equity[1] = chopCount / (double)possibleCombo;
