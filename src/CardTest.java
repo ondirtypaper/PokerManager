@@ -53,13 +53,12 @@ public class CardTest {
         System.out.println(hisHandValue.toString());
 
         System.out.println("************************************");
-        if(myHandValue.compareTo(hisHandValue) > 0) System.out.print("You're ahead");
-        else if(myHandValue.compareTo(hisHandValue) <0) System.out.print("You're behind");
-        else System.out.println("SAME VAULE");
-
-        System.out.println("++ OUTS TEST ++");
-        Outs myOuts = new Outs(myHandValue, hisHandValue, myDeck);
-        myOuts.print();
+        
+        Outs myOuts = new Outs();
+        double[] equity = myOuts.calcEquity(myHandValue, hisHandValue, myDeck, 2);
+        System.out.println("Your Equity : " + Double.toString(equity[0]));
+        System.out.println("Chop Equity : " + Double.toString(equity[1]));
+        System.out.println("His  Equity : " + Double.toString(equity[2]));
 
         System.out.println("> Press Enter...");
         scan.nextLine();
@@ -76,13 +75,17 @@ public class CardTest {
         System.out.println(hisHandValue.toString());
         
         System.out.println("************************************");
-        if(myHandValue.compareTo(hisHandValue) > 0) System.out.print("You're ahead");
-        else if(myHandValue.compareTo(hisHandValue) <0) System.out.print("You're behind");
-        else System.out.print("SAME VAULE");
+        myOuts = new Outs();
+        equity = myOuts.calcEquity(myHandValue, hisHandValue, myDeck, 1);
+        
+        System.out.println("Your Equity : " + Double.toString(equity[0]));
+        System.out.println("Chop Equity : " + Double.toString(equity[1]));
+        System.out.println("His  Equity : " + Double.toString(equity[2]));
         System.out.println("> Press Enter...");
         scan.nextLine();
 
         myBoard.dealRiver(myDeck);
+        
         myBoard.printBoard();
 
         System.out.print("Your Hand :\t" + firstHand.toString() + "\t");
