@@ -126,10 +126,10 @@ public class Value implements Comparable<Value>{
             
             this.rank = Rank.ONE_PAIR;
             bestOfFive[0] = valueCode;
-            bestOfFive[0] = valueCode;
-            bestOfFive[1] = cSet.getKicker(valueCode);
-            bestOfFive[2] = cSet.getKicker(valueCode, bestOfFive[1]);
-            bestOfFive[3] = cSet.getKicker(valueCode, bestOfFive[1], bestOfFive[2]);
+            bestOfFive[1] = valueCode;
+            bestOfFive[2] = cSet.getKicker(valueCode);
+            bestOfFive[3] = cSet.getKicker(valueCode, bestOfFive[1]);
+            bestOfFive[4] = cSet.getKicker(valueCode, bestOfFive[1], bestOfFive[2]);
 
         } else {
             
