@@ -224,9 +224,12 @@ public class CardSet {
         int[] vArr = this.getValueArray();
         int kicker = 0;
         for(int i=0; i<vArr.length ; i++){
-            for(int j=0; j< valueCards.length; j++){
-                if(valueCards[j] == (i+2)) continue;
-                if(vArr[i] > 0) kicker = i + 2; 
+            if(vArr[i] > 0){
+                boolean flag = false; // valueCards 중에 kicker와 일치하는 card가 있는 지 판별하는 flag
+                for(int v : valueCards){
+                    if(v == i+2) flag = true; 
+                }
+                if (!flag) kicker = i + 2;
             }
             //if(valueCards[0] == (i+2)) continue;
             //if(valueCards[1] == (i+2)) continue;

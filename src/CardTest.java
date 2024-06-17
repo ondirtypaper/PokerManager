@@ -104,5 +104,6 @@ public class CardTest {
      
       System.out.println("... ... test is over");
       scan.close();
+      
     }
 }
