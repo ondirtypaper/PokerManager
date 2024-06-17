@@ -3,46 +3,41 @@ import java.util.Iterator;
 
 import static util.Define.*;
 
-public class CardSet {
-    private TreeSet<Card> tree;
+public class CardSet extends TreeSet<Card>{
+    //private TreeSet<Card> tree;
 
     public CardSet(){
-        tree = new TreeSet<Card>();
+        //tree = new TreeSet<Card>();
     }
     public CardSet(CardSet ... sets){
-        tree = new TreeSet<Card>();
+        //tree = new TreeSet<Card>();
         for (CardSet cSet : sets) {
-            for (Card c : cSet.getTreeSet()){
+            for (Card c : cSet){
                 this.addCard(c);
             }
         }
     }
 
     public boolean addCard(Card c){
-        return tree.add(c);
+        return this.add(c);
     }
     public boolean removeCard(Card c){
-        return tree.remove(c);
+        return this.remove(c);
     }
     public int getSize(){
-        return tree.size();
+        return this.size();
     }
     public Card getCardFirst(){
-        return tree.first();
+        return this.first();
     }
     public Card getCardLast(){
-        return tree.last();
-    }
-
-    @SuppressWarnings("unchecked")
-    public TreeSet<Card> getTreeSet(){
-        return (TreeSet<Card>)tree.clone();
+        return this.last();
     }
    
     public Card getRandomCard(){
-        Card[] arr = new Card[tree.size()];
+        Card[] arr = new Card[this.size()];
         int i = 0;
-        for (Card c : tree){
+        for (Card c : this){
             arr[i] = c;
             i++;
         }
@@ -50,14 +45,14 @@ public class CardSet {
     }
     public String toString(){
         String str = "";
-        for (Card c : tree){
+        for (Card c : this){
             str = str.concat(c.toString()+", ");
         }
         return str;
     }
     public String toSimpleString(){
         String str = "";
-        for (Card c : tree){
+        for (Card c : this){
             switch(c.getValue()){
                 case VALUE_OF_ACE:
                 str = str.concat("A");
@@ -84,9 +79,9 @@ public class CardSet {
     public int hasStraightFlush(){
         char flushSuit = this.hasFlush();
         if(flushSuit == NO_FLUSH) return 0; 
-        // ClassCastException !! CardSet flushCardSet = (CardSet)this.getTreeSet().subSet(new Card(2,flushSuit), new Card(VALUE_OF_ACE,flushSuit));
+        
         CardSet flushCardSet = new CardSet();
-        for (Card c : this.getTreeSet().subSet(new Card(2,flushSuit), new Card(VALUE_OF_ACE,flushSuit))){
+        for (Card c : this.subSet(new Card(2,flushSuit), new Card(VALUE_OF_ACE,flushSuit))){
             flushCardSet.addCard(c);
         }
         return flushCardSet.hasStraight();
@@ -117,7 +112,7 @@ public class CardSet {
     }
     public char hasFlush(){
         int sCount = 0, cCount = 0, dCount = 0, hCount = 0;
-        for(Card c : this.getTreeSet()){
+        for(Card c : this){
             if(c.getSuit() == SUIT_OF_SPADES) sCount++;
             else if(c.getSuit() == SUIT_OF_CLUBS) cCount++;  
             else if(c.getSuit() == SUIT_OF_DIAMONDS) dCount++;
@@ -183,10 +178,10 @@ public class CardSet {
     }
     public int[] getValueArray(){
         int[] vArr = new int[13];
-        for(int v : vArr){
-            v=0;
+        for(int i=0; i <vArr.length ; i++){
+            vArr[i] = 0;
         }
-        for(Card c : this.getTreeSet()){
+        for(Card c : this){
             vArr[c.getValue()-2]++;
             // for example ,  vArr[4] == count of 6s   
         }

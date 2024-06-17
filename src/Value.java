@@ -4,7 +4,7 @@ import java.util.SortedSet;
 
 import util.Rank;
 
-public class Value implements Comparable<Value>{
+public class Value extends CardSet implements Comparable<Value> {
     private int[] bestOfFive;
     private Rank rank;
     private char flushCode;
@@ -88,7 +88,7 @@ public class Value implements Comparable<Value>{
         } else if((this.flushCode = cSet.hasFlush()) != NO_FLUSH){
             
             this.rank = Rank.FLUSH;
-            SortedSet<Card> sSet = cSet.getTreeSet().subSet(new Card(2,flushCode), new Card(VALUE_OF_ACE,flushCode));
+            SortedSet<Card> sSet = cSet.subSet(new Card(2,flushCode), new Card(VALUE_OF_ACE,flushCode));
             for(int i=0; i<bestOfFive.length ;i++){
                 bestOfFive[i] = sSet.last().getValue();
             }
@@ -153,7 +153,7 @@ public class Value implements Comparable<Value>{
             case STRAIGHT: return Card.intToString(bestOfFive[0]) + " High Straight";
             case THREE_OF_KIND: return "Three of a kind with " + Card.intToString(bestOfFive[0]) + " and " + Card.intToString(bestOfFive[3]) + " kicker";
             case TWO_PAIR: return "Two pairs of " + Card.intToString(bestOfFive[0]) + "s and " + Card.intToString(bestOfFive[2]) + "s and " + Card.intToString(bestOfFive[4])+ " kicker";
-            case ONE_PAIR: return "A pair of " + Card.intToString(bestOfFive[0]) + "s and " + Card.intToString(bestOfFive[1]) + " kicker";
+            case ONE_PAIR: return "A pair of " + Card.intToString(bestOfFive[0]) + "s and " + Card.intToString(bestOfFive[2]) + " kicker";
             case HIGH_CARD: return "Just " + Card.intToString(bestOfFive[0]) + " High and " + Card.intToString(bestOfFive[1]) + " kicker";
             default: return "";        
         }
